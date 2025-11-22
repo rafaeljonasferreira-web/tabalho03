@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Monitoramento em Tempo Real</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">Real-Time Monitoring Dashboard</h1>
+                <div class="connection-status" id="connectionStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <div class="metrics-grid">
+                <!-- Card: Total de usuários online -->
+                <div class="metric-card primary">
+                    <div class="metric-header">
+                        <h3 class="metric-title">Total Users Online</h3>
+                        <div class="metric-icon">👥</div>
+                    </div>
+                    <div class="metric-value">
+                        <span id="totalUsers">0</span>
+                        <span class="metric-unit">users</span>
+                    </div>
+                    <div class="metric-trend" id="userTrend">
+                        <span class="trend-text">Real-time updates</span>
+                    </div>
+                </div>
+
+                <!-- Card: Sala mais popular -->
+                <div class="metric-card secondary">
+                    <div class="metric-header">
+                        <h3 class="metric-title">Most Active Room</h3>
+                        <div class="metric-icon">🏆</div>
+                    </div>
+                    <div class="metric-value">
+                        <span id="popularRoomName">None</span>
+                    </div>
+                    <div class="metric-info">
+                        <span id="popularRoomCount">0</span> users connected
+                    </div>
+                </div>
+
+                <!-- Card: Última atualização -->
+                <div class="metric-card tertiary">
+                    <div class="metric-header">
+                        <h3 class="metric-title">Last Sync</h3>
+                        <div class="metric-icon">🕒</div>
+                    </div>
+                    <div class="metric-value">
+                        <span id="lastUpdate">--:--:--</span>
+                    </div>
+                    <div class="metric-info">
+                        Automatic refresh every second
+                    </div>
+                </div>
+
+                <!-- Card: Ranking de salas -->
+                <div class="metric-card full-width">
+                    <div class="metric-header">
+                        <h3 class="metric-title">Rooms Ranking</h3>
+                        <div class="metric-icon">📊</div>
+                    </div>
+                    <div class="room-rankings" id="roomRankings">
+                        <div class="empty-state">No active rooms</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <div class="control-card">
+                    <h3 class="control-title">Room Management</h3>
+                    <div class="control-group">
+                        <input
+                            type="text"
+                            id="roomInput"
+                            placeholder="Type a room name..."
+                            class="room-input"
+                        >
+                        <button id="joinRoomBtn" class="btn btn-primary">
+                            Join Room
+                        </button>
+                        <button id="leaveRoomBtn" class="btn btn-secondary">
+                            Leave Current Room
+                        </button>
+                    </div>
+                    <div class="current-room">
+                        <span class="room-label">Current Room:</span>
+                        <span id="currentRoom" class="room-name">None</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Socket.IO Dashboard · TA 03 · Real-time data every 1 second</p>
+        </footer>
+    </div>
+
+    <script src="client.js"></script>
+</body>
+</html>
